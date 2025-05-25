@@ -1,0 +1,97 @@
+.dashboard-header {
+    background: white;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.visitor-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 3px solid;
+    padding: 1rem;
+    height: fit-content;
+}
+
+.visitor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.visitor-card-color-1 { border-left-color: #3b82f6; }
+.visitor-card-color-2 { border-left-color: #10b981; }
+.visitor-card-color-3 { border-left-color: #f59e0b; }
+.visitor-card-color-4 { border-left-color: #ef4444; }
+.visitor-card-color-5 { border-left-color: #8b5cf6; }
+.visitor-card-color-6 { border-left-color: #06b6d4; }
+
+.visitor-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+    .visitor-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .visitor-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .visitor-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.qr-code-container {
+    background: linear-gradient(45deg, #f0f9ff, #e0f2fe);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 2px dashed #0ea5e9;
+}
+
+.visitor-photo {
+    width: 60px;
+    height: 60px;
+    background-color: #e5e7eb;
+    border-radius: 0.5rem;
+    margin: 0 auto;
+}
+
+.warning-blink {
+    animation: blink 1s infinite;
+    border-color: #ef4444 !important;
+}
+
+.expired-token {
+    background: linear-gradient(45deg, #fee2e2, #fecaca);
+    border-color: #ef4444 !important;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}

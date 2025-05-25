@@ -1,0 +1,30 @@
+{
+  "name": "portall-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "deploy": "firebase deploy --only hosting"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lito53025302/Portall-APP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lito53025302/Portall-APP/issues"
+  },
+  "homepage": "https://github.com/Lito53025302/Portall-APP#readme",
+  "description": "",
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "react-scripts": "5.0.1"
+  }
+}

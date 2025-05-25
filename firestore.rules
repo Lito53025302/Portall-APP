@@ -1,0 +1,49 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Coleção de Usuários (profiles)
+    match /users/{userId} {
+      // Qualquer usuário autenticado pode criar seu próprio perfil (documento com seu UID)
+      allow create: if request.auth != null && request.auth.uid == userId;
+      // Apenas o próprio usuário pode ler e atualizar seu perfil
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      // Ninguém pode deletar perfis
+      allow delete: if false;
+    }
+
+    // Coleção de Visitantes
+    match /visitors/{visitorId} {
+      // Apenas moradores podem criar visitantes
+      allow create: if request.auth != null &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'resident' &&
+        request.resource.data.residentUid == request.auth.uid &&
+        request.resource.data.tokenCreatedAt != null &&
+        request.resource.data.tokenExpiresAt != null &&
+        request.resource.data.status == "pendente";
+
+      // Morador que cadastrou ou qualquer porteiro pode ler
+      allow read: if request.auth != null && (
+        resource.data.residentUid == request.auth.uid ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'guard'
+      );
+
+      // Morador pode atualizar para saída registrada
+      allow update: if request.auth != null &&
+        resource.data.residentUid == request.auth.uid &&
+        request.resource.data.status == "saida_registrada" &&
+        request.resource.data.exitTimestamp != null;
+
+      // Porteiro pode atualizar para liberado se token não expirou
+      allow update: if request.auth != null &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'guard' &&
+        request.resource.data.status == "liberado" &&
+        request.resource.data.entryTimestamp != null &&
+        resource.data.tokenExpiresAt > request.time;
+
+      // Ninguém pode deletar visitantes
+      allow delete: if false;
+    }
+  }
+}
